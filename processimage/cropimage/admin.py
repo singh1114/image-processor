@@ -1,3 +1,10 @@
 from django.contrib import admin
 
-# Register your models here.
+from base.admin import BaseAdmin
+
+from cropimage.models import ImageModel
+
+
+@admin.register(ImageModel)
+class ImageModelAdmin(BaseAdmin):
+    pass
