@@ -1,0 +1,18 @@
+{% extends 'admin/base_site.html' %}
+
+{% load static %}
+
+{% block content %}
+    <h1><strong>Choose an image to watch all the cropped images!</strong></h1>
+    <hr><br>
+    {% for image in images %}
+
+        <a href="{% url 'cropimage:show_cropped_images' main_image_uuid=image.uuid %}">
+            <strong>Watch all cropped images</strong>
+        </a>
+        <img src="{{ image.image.url }}" alt="" width="80" height="80">
+        <br><br>
+
+    {% endfor %}
+
+{% endblock %}

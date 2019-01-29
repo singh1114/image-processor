@@ -9,8 +9,12 @@ from cropimage.choices import (
 
 
 class ImageModel(AbstractBaseModel):
-    image_name = models.CharField(
-        max_length=1000, null=True, blank=True)
+    parent_image = models.ForeignKey(
+        'self',
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
+    )
     image_type = models.IntegerField(
         choices=IMAGE_TYPE_CHOICES,
         default=ImageType.MAIN_IMAGE)
