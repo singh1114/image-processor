@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'cropimage'
+    'cropimage',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -119,8 +120,27 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
-
-STATIC_URL = '/static/'
+# STATIC_URL = '/static/'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID', '')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY', '')
+AWS_USERNAME = 'image-processor-s3'
+AWS_STORAGE_BUCKET_NAME = 'image-processor-s3'
+
+AWS_S3_CUSTOM_DOMAIN = '{}.s3.amazonaws.com'.format(AWS_STORAGE_BUCKET_NAME)
+AWS_LOCATION = 'static'
+# print(AWS_STORAGE_BUCKET_NAME)
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'processimage/static'),
+]
+# STATIC_ROOT = 'static'
+
+AWS_DEFAULT_ACL = None
+
+STATIC_URL = 'https://{}/{}/'.format(AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+DEFAULT_FILE_STORAGE = 'processimage.storage_backend.MediaStorage'

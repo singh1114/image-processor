@@ -22,7 +22,6 @@ class ImageUploadView(AbstractAdminBaseView):
             })
 
     def post(self, request, *args, **kwargs):
-        # import ipdb; ipdb.set_trace()
         form = ImageUploadForm(request.POST, request.FILES)
         if form.is_valid():
             model_obj = form.save()
